@@ -23,6 +23,11 @@ iframe {
   float: right;
 }
 
+.centered {
+  display: block;
+  margin: auto;
+}
+
 blockquote {
   font-style: italic;
   font-size: smaller;
@@ -31,5 +36,4 @@ blockquote {
 
 blockquote p:before { content: '“' }
 blockquote p:after { content: '”' }
-
 

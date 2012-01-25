@@ -1,16 +1,11 @@
 !SLIDE
 # Scala on Android
 
+<img src="hello/droid-scala.png" class="centered"/>
+
 <br/>
 <br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-Jan Berkel (@jberkel)
+@jberkel
 
 !SLIDE
 
@@ -113,6 +108,8 @@ href="https://docs.google.com/drawings/d/11ccszWUtTul1DWpvbFBBhZlv_NTLaoJSrxPb3c
 
     if (c != null) c.close();
 
+<br/>
+
 ## ugh.
 
 !SLIDE
@@ -170,6 +167,7 @@ href="https://docs.google.com/drawings/d/11ccszWUtTul1DWpvbFBBhZlv_NTLaoJSrxPb3c
 
   * slow
   * verbose test code
+  * many devices & versions
 
 !SLIDE
 
@@ -256,7 +254,7 @@ But performance is improving (parallel GC, JIT etc)
 
 # problems #3
 
-Scala / Android interop problems
+Scala / Java / Android interop problems
 
 
 ![](hello/scala-bug.png)
@@ -264,12 +262,30 @@ Scala / Android interop problems
 [https://issues.scala-lang.org/browse/SI-4620](https://issues.scala-lang.org/browse/SI-4620)
 
 !SLIDE
-
 ## Android is open source (sometimes)
 
 ![](hello/android-bug.png)
 
 [https://android-review.googlesource.com/#/c/30900/](https://android-review.googlesource.com/#/c/30900/)
+
+!SLIDE
+
+# Parcelables
+
+    public class Foo {
+      public static final Parcelable.Creator<Foo> CREATOR =
+        new Parcelable.Creator<Foo>() {
+          public Foo createFromParcel(Parcel in) {
+              return new Foo(in);
+          }
+
+          public Foo[] newArray(int size) {
+              return new Foo[size];
+          }
+      };
+     }
+
+You cannot do this in Scala!
 
 !SLIDE
 
@@ -304,7 +320,7 @@ Scala / Android interop problems
 
 # Thanks!
 
-## scala-on-android
+## need help? scala-on-android
 
 ![](hello/group.png)
 
