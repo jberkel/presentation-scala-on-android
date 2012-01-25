@@ -9,11 +9,22 @@
 
 !SLIDE
 
-# Quick intro
+# /me
+
+<br/>
+
+  * From Java to Ruby and back
+  * Work on the official SoundCloud Android app
+  * <3 Android open source
+  * Would love to see more people use Scala on Android
+
+!SLIDE
+
+# Quick Android recap
 
 * From 1.0 to 4.0 in < 4 years
 * 700k activations *every* day
-* 10 billion app downloads (both Dec 2011)
+* 10 billion app downloads (Dec 2011)
 
 
 ![](hello/trend.png)
@@ -145,7 +156,7 @@ href="https://docs.google.com/drawings/d/11ccszWUtTul1DWpvbFBBhZlv_NTLaoJSrxPb3c
 
 # shorter callbacks
 
-## pimp my library
+### ...pimp my GpsStatusListener
 <br/>
 
     locationManager.addGpsStatusListener(
@@ -166,12 +177,14 @@ href="https://docs.google.com/drawings/d/11ccszWUtTul1DWpvbFBBhZlv_NTLaoJSrxPb3c
 <br/>
 
   * slow
-  * verbose test code
   * many devices & versions
+  * verbose test code
 
 !SLIDE
 
-# Scala for testing Android apps
+# Scala for testing
+
+<br/>
 
 ## ScalaMock
 
@@ -179,7 +192,7 @@ href="https://docs.google.com/drawings/d/11ccszWUtTul1DWpvbFBBhZlv_NTLaoJSrxPb3c
  * Currently not able to mock Android core classes
 
 <br/>
-[https://github.com/paulbutcher/scalamock](https://github.com/paulbutcher/scalamock)
+[github.com/paulbutcher/scalamock](https://github.com/paulbutcher/scalamock)
 
 !SLIDE
 
@@ -187,13 +200,13 @@ href="https://docs.google.com/drawings/d/11ccszWUtTul1DWpvbFBBhZlv_NTLaoJSrxPb3c
 
 <br>
 
-  * Testable reimplementation of the SDK
-  * classloading tricks allow test execution on development machine
-  * works with specs2 and ScalaTest
+  * Testable reimplementation of the SDK (don't ask)
+  * Classloading trickery allow test execution on development machine
+  * Works with specs2 and ScalaTest
 
 <br>
-[https://github.com/pivotal/robolectric](https://github.com/pivotal/robolectric)
-[https://github.com/jbrechtel/robospecs](https://github.com/jbrechtel/robospecs)
+[github.com/pivotal/robolectric](https://github.com/pivotal/robolectric)
+[github.com/jbrechtel/robospecs](https://github.com/jbrechtel/robospecs)
 
 !SLIDE
 
@@ -212,9 +225,9 @@ href="https://docs.google.com/drawings/d/11ccszWUtTul1DWpvbFBBhZlv_NTLaoJSrxPb3c
     }
 
 !SLIDE
-# problems with Scala
+# Problems with Scala
 
-### many runtime assumptions:
+### many runtime assumptions based on JVM:
 
 * object allocation is cheap
 * efficient and fast GC
@@ -232,14 +245,21 @@ But performance is improving (parallel GC, JIT etc)
 
 !SLIDE
 
-# problems #2
+# Problems #2
 
 ## Scala programs need a runtime lib
 
+<br/>
+
+    $ ls -lh scala-library.jar
+    rw-r--r--  jan  wheel  8.5M 24 May  2011 scala-library.jar
+
+    $ jar tfv scala-library.jar | wc -l
+      5480
 
 !SLIDE
 
-# solution
+# Solution
 
   * use proguard / treeshaker before dexing
   * preinstall Scala libs on the phone
@@ -252,21 +272,21 @@ But performance is improving (parallel GC, JIT etc)
 
 !SLIDE
 
-# problems #3
+# Problems #3
 
 Scala / Java / Android interop problems
 
 
 ![](hello/scala-bug.png)
 
-[https://issues.scala-lang.org/browse/SI-4620](https://issues.scala-lang.org/browse/SI-4620)
+[issues.scala-lang.org/browse/SI-4620](https://issues.scala-lang.org/browse/SI-4620)
 
 !SLIDE
-## Android is open source (sometimes)
+## But Android is "open" (sometimes...)
 
 ![](hello/android-bug.png)
 
-[https://android-review.googlesource.com/#/c/30900/](https://android-review.googlesource.com/#/c/30900/)
+[android-review.googlesource.com/#/c/30900/](https://android-review.googlesource.com/#/c/30900/)
 
 !SLIDE
 
@@ -293,8 +313,10 @@ You cannot do this in Scala!
 
 <br/>
 
-  * Not good for realtime apps (i.e. games)
-  * if unsure, start with Scala tests
+  * Suitable for most types of apps
+  * But not good for realtime apps (i.e. games)
+  * Lack of experience / libraries
+  * If unsure, start with Scala tests
 
 !SLIDE
 # Tools
@@ -305,8 +327,8 @@ You cannot do this in Scala!
 
 <br/>
 
-[https://github.com/jberkel/android-plugin/](https://github.com/jberkel/android-plugin/)
-[https://github.com/rst/positronic_net](https://github.com/rst/positronic_net)
+[github.com/jberkel/android-plugin](https://github.com/jberkel/android-plugin)
+[github.com/rst/positronic_net](https://github.com/rst/positronic_net)
 
 
 !SLIDE
@@ -320,8 +342,9 @@ You cannot do this in Scala!
 
 # Thanks!
 
-## need help? scala-on-android
+## need help? ask scala-on-android
 
 ![](hello/group.png)
 
-[https://groups.google.com/forum/#!forum/scala-on-android](https://groups.google.com/forum/#!forum/scala-on-android)
+[groups.google.com/forum/#!forum/scala-on-android](https://groups.google.com/forum/#!forum/scala-on-android)
+[jberkel.github.com/presentation-scala-on-android](http://jberkel.github.com/presentation-scala-on-android)

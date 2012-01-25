@@ -7,7 +7,7 @@
         <script type="text/javascript" src="assets/js/jquery.min.js"></script>
         <script type="text/javascript" src="assets/js/show.js"></script>
         <script type="text/javascript" src="assets/js/prettify/prettify.js"></script>
-        <script type="text/javascript" src="assets/js/prettify/lang-apollo.js"></script><script type="text/javascript" src="assets/js/prettify/lang-css.js"></script><script type="text/javascript" src="assets/js/prettify/lang-hs.js"></script><script type="text/javascript" src="assets/js/prettify/lang-lisp.js"></script><script type="text/javascript" src="assets/js/prettify/lang-lua.js"></script><script type="text/javascript" src="assets/js/prettify/lang-ml.js"></script><script type="text/javascript" src="assets/js/prettify/lang-proto.js"></script><script type="text/javascript" src="assets/js/prettify/lang-scala.js"></script><script type="text/javascript" src="assets/js/prettify/lang-sql.js"></script><script type="text/javascript" src="assets/js/prettify/lang-sql.js"></script><script type="text/javascript" src="assets/js/prettify/lang-vb.js"></script><script type="text/javascript" src="assets/js/prettify/lang-vhdl.js"></script><script type="text/javascript" src="assets/js/prettify/lang-wiki.js"></script><script type="text/javascript" src="assets/js/prettify/lang-yaml.js"></script><link href="css/custom.css?1327464922100" type="text/css" rel="stylesheet" />
+        <script type="text/javascript" src="assets/js/prettify/lang-apollo.js"></script><script type="text/javascript" src="assets/js/prettify/lang-css.js"></script><script type="text/javascript" src="assets/js/prettify/lang-hs.js"></script><script type="text/javascript" src="assets/js/prettify/lang-lisp.js"></script><script type="text/javascript" src="assets/js/prettify/lang-lua.js"></script><script type="text/javascript" src="assets/js/prettify/lang-ml.js"></script><script type="text/javascript" src="assets/js/prettify/lang-proto.js"></script><script type="text/javascript" src="assets/js/prettify/lang-scala.js"></script><script type="text/javascript" src="assets/js/prettify/lang-sql.js"></script><script type="text/javascript" src="assets/js/prettify/lang-sql.js"></script><script type="text/javascript" src="assets/js/prettify/lang-vb.js"></script><script type="text/javascript" src="assets/js/prettify/lang-vhdl.js"></script><script type="text/javascript" src="assets/js/prettify/lang-wiki.js"></script><script type="text/javascript" src="assets/js/prettify/lang-yaml.js"></script><link href="css/custom.css?1327467203598" type="text/css" rel="stylesheet" />
       <script type="text/javascript"><!--
         window.onload=function() { prettyPrint(); };
       --></script>
@@ -22,13 +22,20 @@
 @jberkel
 </p></div>
       </div><div class="content" id="slide-1">
-       <div class="container"><h1>Quick intro</h1><ul><li>From 1.0 to 4.0 in &lt; 4 years
+       <div class="container"><h1>/me</h1><br/>
+<ul><li>From Java to Ruby and back
+</li><li>Work on the official SoundCloud Android app
+</li><li>&lt;3 Android open source
+</li><li>Would love to see more people use Scala on Android
+</li></ul></div>
+      </div><div class="content" id="slide-2">
+       <div class="container"><h1>Quick Android recap</h1><ul><li>From 1.0 to 4.0 in &lt; 4 years
 </li><li>700k activations <em>every</em> day
-</li><li>10 billion app downloads (both Dec 2011)
+</li><li>10 billion app downloads (Dec 2011)
 </li></ul><p><img  src="hello/trend.png" alt="" />
 <img  src="hello/market.jpg" alt="" />
 </p></div>
-      </div><div class="content" id="slide-2">
+      </div><div class="content" id="slide-3">
        <div class="container"><h1>Basics</h1><ul><li>at the core: Linux + DalvikVM (not JVM!)
 </li><li>Officially supported: Java + C/C++ (NDK)
 </li></ul><a
@@ -36,20 +43,20 @@ href="https://docs.google.com/drawings/d/1LyNAij06eaHNxHpGczNApUdU84-8mVC8uEAkNG
 <embed src="hello/jvm-dex-empty.svg" height="90%" type="image/svg+xml"/>
 </a>
 </div>
-      </div><div class="content" id="slide-3">
+      </div><div class="content" id="slide-4">
        <div class="container"><h1>What's this Dalvik thing?</h1><br/>
 <ul><li>Dalvik bytecode != JVM bytecode
 </li><li>optimised for smaller devices
 </li><li>one VM per process (forked)
 </li><li>used to be very slow, JIT since 2.2
 </li></ul></div>
-      </div><div class="content" id="slide-4">
+      </div><div class="content" id="slide-5">
        <div class="container"><h1>Not just Java</h1><a
 href="https://docs.google.com/drawings/d/11ccszWUtTul1DWpvbFBBhZlv_NTLaoJSrxPb3cd4U3Y/edit">
 <embed src="hello/jvm-dex.svg" height="90%" type="image/svg+xml"/>
 </a>
 </div>
-      </div><div class="content" id="slide-5">
+      </div><div class="content" id="slide-6">
        <div class="container"><h1>Why Scala on Android?</h1><br/>
 <h3>Android is Java framework design, ca. 2001</h3><br>
 <pre><code>public class MyActivity extends android.app.Activity {
@@ -60,7 +67,7 @@ href="https://docs.google.com/drawings/d/11ccszWUtTul1DWpvbFBBhZlv_NTLaoJSrxPb3c
   }
 }
 </code></pre></div>
-      </div><div class="content" id="slide-6">
+      </div><div class="content" id="slide-7">
        <div class="container"><h1>Traits to split concerns</h1><br/>
 <pre><code>trait BatteryAware extends Activity {
   override def onCreate(b: Bundle) {
@@ -74,10 +81,10 @@ class MyActivity extends Activity
   with Logger {
 }
 </code></pre></div>
-      </div><div class="content" id="slide-7">
+      </div><div class="content" id="slide-8">
        <div class="container"><h1>Android &amp; APIs</h1><p><img  src="hello/api.png" alt="" />
 </p><h2>actually not so bad.</h2></div>
-      </div><div class="content" id="slide-8">
+      </div><div class="content" id="slide-9">
        <div class="container"><h1>But sometimes awkward</h1><br/>
 <pre><code>Cursor  c = resolver.query(...);
 List&lt;MyModel&gt; l = new ArrayList&lt;MyModel&gt;();
@@ -89,7 +96,7 @@ while (c != null &amp;&amp; c.moveToNext()) {
 if (c != null) c.close();
 </code></pre><br/>
 <h2>ugh.</h2></div>
-      </div><div class="content" id="slide-9">
+      </div><div class="content" id="slide-10">
        <div class="container"><h1>Let's make a nice functional Cursor</h1><br/>
 <pre><code>class NiceCursor(c: Cursor) extends Iterable[Cursor] {
   def iterator = new Iterator[Cursor] {
@@ -99,7 +106,7 @@ if (c != null) c.close();
 }
 implicit def NiceCursor(c: Cursor) = new NiceCursor(c)
 </code></pre></div>
-      </div><div class="content" id="slide-10">
+      </div><div class="content" id="slide-11">
        <div class="container"><h1>and a better query interface</h1><pre><code>def query[T](uri: Uri)(fun: Cursor =&gt; T) = {
     val cursor = resolver.query(uri)
     try {
@@ -111,8 +118,8 @@ implicit def NiceCursor(c: Cursor) = new NiceCursor(c)
 // one liner
 val l = query(...)(_.map(MyModel.fromCursor(_)))
 </code></pre></div>
-      </div><div class="content" id="slide-11">
-       <div class="container"><h1>shorter callbacks</h1><h2>pimp my library</h2><br/>
+      </div><div class="content" id="slide-12">
+       <div class="container"><h1>shorter callbacks</h1><h3>...pimp my GpsStatusListener</h3><br/>
 <pre><code>locationManager.addGpsStatusListener(
   new GpsStatusListener() {
     public void onGpsStatusChanged(int evt) {
@@ -123,28 +130,29 @@ val l = query(...)(_.map(MyModel.fromCursor(_)))
 // vs.
 locationManager.addGpsStatusListener(println(_))
 </code></pre></div>
-      </div><div class="content" id="slide-12">
+      </div><div class="content" id="slide-13">
        <div class="container"><h1>Testing on Android</h1><h2>...sucks.</h2><br/>
 <ul><li>slow
-</li><li>verbose test code
 </li><li>many devices &amp; versions
+</li><li>verbose test code
 </li></ul></div>
-      </div><div class="content" id="slide-13">
-       <div class="container"><h1>Scala for testing Android apps</h1><h2>ScalaMock</h2><ul><li>Uses a compiler plugin to generate mocks
+      </div><div class="content" id="slide-14">
+       <div class="container"><h1>Scala for testing</h1><br/>
+<h2>ScalaMock</h2><ul><li>Uses a compiler plugin to generate mocks
 </li><li>Currently not able to mock Android core classes
 </li></ul><p><br/>
-<a href="https://github.com/paulbutcher/scalamock" >https://github.com/paulbutcher/scalamock</a>
-</p></div>
-      </div><div class="content" id="slide-14">
-       <div class="container"><h1>robolectric / robospecs</h1><br>
-<ul><li>Testable reimplementation of the SDK
-</li><li>classloading tricks allow test execution on development machine
-</li><li>works with specs2 and ScalaTest
-</li></ul><p><br>
-<a href="https://github.com/pivotal/robolectric" >https://github.com/pivotal/robolectric</a>
-<a href="https://github.com/jbrechtel/robospecs" >https://github.com/jbrechtel/robospecs</a>
+<a href="https://github.com/paulbutcher/scalamock" >github.com/paulbutcher/scalamock</a>
 </p></div>
       </div><div class="content" id="slide-15">
+       <div class="container"><h1>robolectric / robospecs</h1><br>
+<ul><li>Testable reimplementation of the SDK (don't ask)
+</li><li>Classloading trickery allow test execution on development machine
+</li><li>Works with specs2 and ScalaTest
+</li></ul><p><br>
+<a href="https://github.com/pivotal/robolectric" >github.com/pivotal/robolectric</a>
+<a href="https://github.com/jbrechtel/robospecs" >github.com/jbrechtel/robospecs</a>
+</p></div>
+      </div><div class="content" id="slide-16">
        <div class="container"><h1>ScalaTest Example</h1><pre><code>lazy val track = ...
 
 it should &quot;insert an read back a track&quot; in {
@@ -157,8 +165,8 @@ it should &quot;insert an read back a track&quot; in {
   // etc.
 }
 </code></pre></div>
-      </div><div class="content" id="slide-16">
-       <div class="container"><h1>problems with Scala</h1><h3>many runtime assumptions:</h3><ul><li>object allocation is cheap
+      </div><div class="content" id="slide-17">
+       <div class="container"><h1>Problems with Scala</h1><h3>many runtime assumptions based on JVM:</h3><ul><li>object allocation is cheap
 </li><li>efficient and fast GC
 </li></ul><p><br/>
 However, Android developer guidelines say:
@@ -169,23 +177,29 @@ Avoid Creating Unnecessary Objects
 </blockquote>
 <p>But performance is improving (parallel GC, JIT etc)
 </p></div>
-      </div><div class="content" id="slide-17">
-       <div class="container"><h1>problems #2</h1><h2>Scala programs need a runtime lib</h2></div>
       </div><div class="content" id="slide-18">
-       <div class="container"><h1>solution</h1><ul><li>use proguard / treeshaker before dexing
+       <div class="container"><h1>Problems #2</h1><h2>Scala programs need a runtime lib</h2><br/>
+<pre><code>$ ls -lh scala-library.jar
+rw-r--r--  jan  wheel  8.5M 24 May  2011 scala-library.jar
+
+$ jar tfv scala-library.jar | wc -l
+  5480
+</code></pre></div>
+      </div><div class="content" id="slide-19">
+       <div class="container"><h1>Solution</h1><ul><li>use proguard / treeshaker before dexing
 </li><li>preinstall Scala libs on the phone
 </li></ul><br/>
 <h3>Proguard is slow, long dev cycles</h3><h3>Only run it before releasing</h3></div>
-      </div><div class="content" id="slide-19">
-       <div class="container"><h1>problems #3</h1><p>Scala / Java / Android interop problems
-</p><p><img  src="hello/scala-bug.png" alt="" />
-</p><p><a href="https://issues.scala-lang.org/browse/SI-4620" >https://issues.scala-lang.org/browse/SI-4620</a>
-</p></div>
       </div><div class="content" id="slide-20">
-       <div class="container"><h2>Android is open source (sometimes)</h2><p><img  src="hello/android-bug.png" alt="" />
-</p><p><a href="https://android-review.googlesource.com/#/c/30900/" >https://android-review.googlesource.com/#/c/30900/</a>
+       <div class="container"><h1>Problems #3</h1><p>Scala / Java / Android interop problems
+</p><p><img  src="hello/scala-bug.png" alt="" />
+</p><p><a href="https://issues.scala-lang.org/browse/SI-4620" >issues.scala-lang.org/browse/SI-4620</a>
 </p></div>
       </div><div class="content" id="slide-21">
+       <div class="container"><h2>But Android is &quot;open&quot; (sometimes...)</h2><p><img  src="hello/android-bug.png" alt="" />
+</p><p><a href="https://android-review.googlesource.com/#/c/30900/" >android-review.googlesource.com/#/c/30900/</a>
+</p></div>
+      </div><div class="content" id="slide-22">
        <div class="container"><h1>Parcelables</h1><pre><code>public class Foo {
   public static final Parcelable.Creator&lt;Foo&gt; CREATOR =
     new Parcelable.Creator&lt;Foo&gt;() {
@@ -200,29 +214,32 @@ Avoid Creating Unnecessary Objects
  }
 </code></pre><p>You cannot do this in Scala!
 </p></div>
-      </div><div class="content" id="slide-22">
-       <div class="container"><h1>When to use Scala</h1><br/>
-<ul><li>Not good for realtime apps (i.e. games)
-</li><li>if unsure, start with Scala tests
-</li></ul></div>
       </div><div class="content" id="slide-23">
+       <div class="container"><h1>When to use Scala</h1><br/>
+<ul><li>Suitable for most types of apps
+</li><li>But not good for realtime apps (i.e. games)
+</li><li>Lack of experience / libraries
+</li><li>If unsure, start with Scala tests
+</li></ul></div>
+      </div><div class="content" id="slide-24">
        <div class="container"><h1>Tools</h1><ul><li>sbt-android-plugin
 </li><li>Intellij IDEA (fsc + Scala / Android facets)
 </li><li>positronic lib
 </li></ul><br/>
-<p><a href="https://github.com/jberkel/android-plugin/" >https://github.com/jberkel/android-plugin/</a>
-<a href="https://github.com/rst/positronic_net" >https://github.com/rst/positronic_net</a>
+<p><a href="https://github.com/jberkel/android-plugin" >github.com/jberkel/android-plugin</a>
+<a href="https://github.com/rst/positronic_net" >github.com/rst/positronic_net</a>
 </p></div>
-      </div><div class="content" id="slide-24">
+      </div><div class="content" id="slide-25">
        <div class="container"><h1>How to get started</h1><br/>
 <h2>Demo time...</h2></div>
-      </div><div class="content" id="slide-25">
-       <div class="container"><h1>Thanks!</h1><h2>need help? scala-on-android</h2><p><img  src="hello/group.png" alt="" />
-</p><p><a href="https://groups.google.com/forum/#!forum/scala-on-android" >https://groups.google.com/forum/#!forum/scala-on-android</a>
+      </div><div class="content" id="slide-26">
+       <div class="container"><h1>Thanks!</h1><h2>need help? ask scala-on-android</h2><p><img  src="hello/group.png" alt="" />
+</p><p><a href="https://groups.google.com/forum/#!forum/scala-on-android" >groups.google.com/forum/#!forum/scala-on-android</a>
+<a href="http://jberkel.github.com/presentation-scala-on-android" >jberkel.github.com/presentation-scala-on-android</a>
 </p></div>
       </div>
           </div>
         </div>
-        <script type="text/javascript" src="js/custom.js?1327464922581"></script>
+        <script type="text/javascript" src="js/custom.js?1327467204041"></script>
       </body>
     </html>
