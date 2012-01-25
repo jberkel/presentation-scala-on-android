@@ -7,7 +7,7 @@
         <script type="text/javascript" src="assets/js/jquery.min.js"></script>
         <script type="text/javascript" src="assets/js/show.js"></script>
         <script type="text/javascript" src="assets/js/prettify/prettify.js"></script>
-        <script type="text/javascript" src="assets/js/prettify/lang-apollo.js"></script><script type="text/javascript" src="assets/js/prettify/lang-css.js"></script><script type="text/javascript" src="assets/js/prettify/lang-hs.js"></script><script type="text/javascript" src="assets/js/prettify/lang-lisp.js"></script><script type="text/javascript" src="assets/js/prettify/lang-lua.js"></script><script type="text/javascript" src="assets/js/prettify/lang-ml.js"></script><script type="text/javascript" src="assets/js/prettify/lang-proto.js"></script><script type="text/javascript" src="assets/js/prettify/lang-scala.js"></script><script type="text/javascript" src="assets/js/prettify/lang-sql.js"></script><script type="text/javascript" src="assets/js/prettify/lang-sql.js"></script><script type="text/javascript" src="assets/js/prettify/lang-vb.js"></script><script type="text/javascript" src="assets/js/prettify/lang-vhdl.js"></script><script type="text/javascript" src="assets/js/prettify/lang-wiki.js"></script><script type="text/javascript" src="assets/js/prettify/lang-yaml.js"></script><link href="css/custom.css?1327462894752" type="text/css" rel="stylesheet" />
+        <script type="text/javascript" src="assets/js/prettify/lang-apollo.js"></script><script type="text/javascript" src="assets/js/prettify/lang-css.js"></script><script type="text/javascript" src="assets/js/prettify/lang-hs.js"></script><script type="text/javascript" src="assets/js/prettify/lang-lisp.js"></script><script type="text/javascript" src="assets/js/prettify/lang-lua.js"></script><script type="text/javascript" src="assets/js/prettify/lang-ml.js"></script><script type="text/javascript" src="assets/js/prettify/lang-proto.js"></script><script type="text/javascript" src="assets/js/prettify/lang-scala.js"></script><script type="text/javascript" src="assets/js/prettify/lang-sql.js"></script><script type="text/javascript" src="assets/js/prettify/lang-sql.js"></script><script type="text/javascript" src="assets/js/prettify/lang-vb.js"></script><script type="text/javascript" src="assets/js/prettify/lang-vhdl.js"></script><script type="text/javascript" src="assets/js/prettify/lang-wiki.js"></script><script type="text/javascript" src="assets/js/prettify/lang-yaml.js"></script><link href="css/custom.css?1327464922100" type="text/css" rel="stylesheet" />
       <script type="text/javascript"><!--
         window.onload=function() { prettyPrint(); };
       --></script>
@@ -16,16 +16,10 @@
         <div id="slides">
           <div id="reel">
             <div class="content" id="slide-0">
-       <div class="container"><h1>Scala on Android</h1><p><br/>
+       <div class="container"><h1>Scala on Android</h1><img src="hello/droid-scala.png" class="centered"/>
+<p><br/>
 <br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-Jan Berkel (@jberkel)
+@jberkel
 </p></div>
       </div><div class="content" id="slide-1">
        <div class="container"><h1>Quick intro</h1><ul><li>From 1.0 to 4.0 in &lt; 4 years
@@ -93,7 +87,8 @@ while (c != null &amp;&amp; c.moveToNext()) {
 }
 
 if (c != null) c.close();
-</code></pre><h2>ugh.</h2></div>
+</code></pre><br/>
+<h2>ugh.</h2></div>
       </div><div class="content" id="slide-9">
        <div class="container"><h1>Let's make a nice functional Cursor</h1><br/>
 <pre><code>class NiceCursor(c: Cursor) extends Iterable[Cursor] {
@@ -132,6 +127,7 @@ locationManager.addGpsStatusListener(println(_))
        <div class="container"><h1>Testing on Android</h1><h2>...sucks.</h2><br/>
 <ul><li>slow
 </li><li>verbose test code
+</li><li>many devices &amp; versions
 </li></ul></div>
       </div><div class="content" id="slide-13">
        <div class="container"><h1>Scala for testing Android apps</h1><h2>ScalaMock</h2><ul><li>Uses a compiler plugin to generate mocks
@@ -181,7 +177,7 @@ Avoid Creating Unnecessary Objects
 </li></ul><br/>
 <h3>Proguard is slow, long dev cycles</h3><h3>Only run it before releasing</h3></div>
       </div><div class="content" id="slide-19">
-       <div class="container"><h1>problems #3</h1><p>Scala / Android interop problems
+       <div class="container"><h1>problems #3</h1><p>Scala / Java / Android interop problems
 </p><p><img  src="hello/scala-bug.png" alt="" />
 </p><p><a href="https://issues.scala-lang.org/browse/SI-4620" >https://issues.scala-lang.org/browse/SI-4620</a>
 </p></div>
@@ -190,11 +186,26 @@ Avoid Creating Unnecessary Objects
 </p><p><a href="https://android-review.googlesource.com/#/c/30900/" >https://android-review.googlesource.com/#/c/30900/</a>
 </p></div>
       </div><div class="content" id="slide-21">
+       <div class="container"><h1>Parcelables</h1><pre><code>public class Foo {
+  public static final Parcelable.Creator&lt;Foo&gt; CREATOR =
+    new Parcelable.Creator&lt;Foo&gt;() {
+      public Foo createFromParcel(Parcel in) {
+          return new Foo(in);
+      }
+
+      public Foo[] newArray(int size) {
+          return new Foo[size];
+      }
+  };
+ }
+</code></pre><p>You cannot do this in Scala!
+</p></div>
+      </div><div class="content" id="slide-22">
        <div class="container"><h1>When to use Scala</h1><br/>
 <ul><li>Not good for realtime apps (i.e. games)
 </li><li>if unsure, start with Scala tests
 </li></ul></div>
-      </div><div class="content" id="slide-22">
+      </div><div class="content" id="slide-23">
        <div class="container"><h1>Tools</h1><ul><li>sbt-android-plugin
 </li><li>Intellij IDEA (fsc + Scala / Android facets)
 </li><li>positronic lib
@@ -202,16 +213,16 @@ Avoid Creating Unnecessary Objects
 <p><a href="https://github.com/jberkel/android-plugin/" >https://github.com/jberkel/android-plugin/</a>
 <a href="https://github.com/rst/positronic_net" >https://github.com/rst/positronic_net</a>
 </p></div>
-      </div><div class="content" id="slide-23">
+      </div><div class="content" id="slide-24">
        <div class="container"><h1>How to get started</h1><br/>
 <h2>Demo time...</h2></div>
-      </div><div class="content" id="slide-24">
-       <div class="container"><h1>Thanks!</h1><h2>scala-on-android</h2><p><img  src="hello/group.png" alt="" />
+      </div><div class="content" id="slide-25">
+       <div class="container"><h1>Thanks!</h1><h2>need help? scala-on-android</h2><p><img  src="hello/group.png" alt="" />
 </p><p><a href="https://groups.google.com/forum/#!forum/scala-on-android" >https://groups.google.com/forum/#!forum/scala-on-android</a>
 </p></div>
       </div>
           </div>
         </div>
-        <script type="text/javascript" src="js/custom.js?1327462895209"></script>
+        <script type="text/javascript" src="js/custom.js?1327464922581"></script>
       </body>
     </html>
