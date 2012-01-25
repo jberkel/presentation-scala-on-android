@@ -110,14 +110,15 @@ href="https://docs.google.com/drawings/d/11ccszWUtTul1DWpvbFBBhZlv_NTLaoJSrxPb3c
 
 <br/>
 
-    Cursor  c = resolver.query(...);
-    List<MyModel> l = new ArrayList<MyModel>();
-
+    // database lookup
+    Cursor c = resolver.query(...);
+    List<MyModel> list = new ArrayList<MyModel>();
+    // iterate over rows and create objects
     while (c != null && c.moveToNext()) {
-        l.add(new MyModel.fromCursor(c));
+        list.add(MyModel.fromCursor(c));
     }
-
-    if (c != null) c.close();
+    if (c != null) c.close(); // release resource
+    return list;
 
 <br/>
 
@@ -149,14 +150,14 @@ href="https://docs.google.com/drawings/d/11ccszWUtTul1DWpvbFBBhZlv_NTLaoJSrxPb3c
           cursor.close()
         }
     }
-    // one liner
-    val l = query(...)(_.map(MyModel.fromCursor(_)))
+    // that's better
+    val list = query(...)(_.map(MyModel.fromCursor(_)))
 
 !SLIDE
 
 # shorter callbacks
 
-### ...pimp my GpsStatusListener
+### ...pimp my GpsStatusListeners
 <br/>
 
     locationManager.addGpsStatusListener(
@@ -192,7 +193,7 @@ href="https://docs.google.com/drawings/d/11ccszWUtTul1DWpvbFBBhZlv_NTLaoJSrxPb3c
  * Currently not able to mock Android core classes
 
 <br/>
-[https://github.com/paulbutcher/scalamock](https://github.com/paulbutcher/scalamock)
+[github.com/paulbutcher/scalamock](https://github.com/paulbutcher/scalamock)
 
 !SLIDE
 
@@ -205,8 +206,8 @@ href="https://docs.google.com/drawings/d/11ccszWUtTul1DWpvbFBBhZlv_NTLaoJSrxPb3c
   * Works with specs2 and ScalaTest
 
 <br>
-[https://github.com/pivotal/robolectric](https://github.com/pivotal/robolectric)
-[https://github.com/jbrechtel/robospecs](https://github.com/jbrechtel/robospecs)
+[github.com/pivotal/robolectric](https://github.com/pivotal/robolectric)
+[github.com/jbrechtel/robospecs](https://github.com/jbrechtel/robospecs)
 
 !SLIDE
 
@@ -245,7 +246,7 @@ But performance is improving (parallel GC, JIT etc)
 
 !SLIDE
 
-# problems #2
+# Problems #2
 
 ## Scala programs need a runtime lib
 
@@ -259,7 +260,7 @@ But performance is improving (parallel GC, JIT etc)
 
 !SLIDE
 
-# solution
+# Solution
 
   * use proguard / treeshaker before dexing
   * preinstall Scala libs on the phone
@@ -272,21 +273,21 @@ But performance is improving (parallel GC, JIT etc)
 
 !SLIDE
 
-# problems #3
+# Problems #3
 
 Scala / Java / Android interop problems
 
 
 ![](hello/scala-bug.png)
 
-[https://issues.scala-lang.org/browse/SI-4620](https://issues.scala-lang.org/browse/SI-4620)
+[issues.scala-lang.org/browse/SI-4620](https://issues.scala-lang.org/browse/SI-4620)
 
 !SLIDE
 ## But Android is "open" (sometimes...)
 
 ![](hello/android-bug.png)
 
-[https://android-review.googlesource.com/#/c/30900/](https://android-review.googlesource.com/#/c/30900/)
+[android-review.googlesource.com/#/c/30900/](https://android-review.googlesource.com/#/c/30900/)
 
 !SLIDE
 
@@ -314,7 +315,7 @@ You cannot do this in Scala!
 <br/>
 
   * Suitable for most types of apps
-  * But not good for realtime apps (i.e. games)
+  * But not good for realtime (i.e. games)
   * Lack of experience / libraries
   * If unsure, start with Scala tests
 
@@ -322,13 +323,14 @@ You cannot do this in Scala!
 # Tools
 
   * sbt-android-plugin
-  * Intellij IDEA (fsc + Scala / Android facets)
+  * Intellij IDEA CE (fsc + Scala / Android facets)
   * positronic lib
 
 <br/>
 
-[https://github.com/jberkel/android-plugin](https://github.com/jberkel/android-plugin)
-[https://github.com/rst/positronic_net](https://github.com/rst/positronic_net)
+ * [github.com/jberkel/android-plugin](https://github.com/jberkel/android-plugin)
+ * [www.jetbrains.com/idea/download/](http://www.jetbrains.com/idea/download/)
+ * [github.com/rst/positronic_net](https://github.com/rst/positronic_net)
 
 
 !SLIDE
@@ -342,8 +344,9 @@ You cannot do this in Scala!
 
 # Thanks!
 
-## need help? scala-on-android
+## need help? ask scala-on-android
 
 ![](hello/group.png)
 
-[https://groups.google.com/forum/#!forum/scala-on-android](https://groups.google.com/forum/#!forum/scala-on-android)
+[groups.google.com/forum/#!forum/scala-on-android](https://groups.google.com/forum/#!forum/scala-on-android)
+[jberkel.github.com/presentation-scala-on-android](http://jberkel.github.com/presentation-scala-on-android)
