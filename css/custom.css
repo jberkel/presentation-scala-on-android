@@ -1,0 +1,35 @@
+/* custom styles */
+a:link, a:visited { color:#FF1385; }
+a:hover { color:#12A0FF; }
+
+img { max-height:500px;}
+
+.subtle { color: #ccc; font-size:smaller; margin-bottom:5em;}
+
+li { list-style: square; }
+
+iframe {
+  border: none;
+  width: 100%;
+  height: 80%;
+}
+
+.left {
+  float: left;
+  text-align: right;
+}
+
+.right {
+  float: right;
+}
+
+blockquote {
+  font-style: italic;
+  font-size: smaller;
+  margin: 1em 3em;
+}
+
+blockquote p:before { content: '“' }
+blockquote p:after { content: '”' }
+
+
