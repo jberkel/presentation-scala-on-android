@@ -177,61 +177,6 @@ href="https://docs.google.com/drawings/d/11ccszWUtTul1DWpvbFBBhZlv_NTLaoJSrxPb3c
 
 !SLIDE
 
-# or to create nicer APIs
-
-<br/>
-
-    // query content provider
-    Cursor c = resolver.query(...);
-    List<MyModel> list = new ArrayList<MyModel>();
-    // iterate over rows and create objects
-    while (c != null && c.moveToNext()) {
-        list.add(MyModel.fromCursor(c));
-    }
-    if (c != null) c.close(); // release resource
-    return list;
-
-<br/>
-
-
-!SLIDE
-
-# vs
-
-<br/>
-
-    return resolver.query(...) { cursor =>
-      cursor.map(MyModel.fromCursor(_))
-    }
-
-!SLIDE
-
-# making the cursor iterable
-
-<br/>
-
-    class BetterCursor(c: Cursor) extends Iterable[Cursor] {
-      def iterator = new Iterator[Cursor] {
-        def hasNext = c.getCount > 0 && !c.isLast
-        def next() = { c.moveToNext(); c }
-      }
-    }
-
-!SLIDE
-
-# managing resources
-
-    def query[T](uri: Uri)(fun: Cursor => T) = {
-        val cursor = resolver.query(uri)
-        try {
-          fun(cursor)
-        } finally {
-          cursor.close()
-        }
-    }
-
-!SLIDE
-
 # Why you shouldn't use Scala (yet)
 
 !SLIDE
@@ -347,3 +292,4 @@ Scala / Java / Android interop problems
 
 [groups.google.com/forum/#!forum/scala-on-android](https://groups.google.com/forum/#!forum/scala-on-android)
 [jberkel.github.com/presentation-scala-on-android](http://jberkel.github.com/devfest-scala)
+
