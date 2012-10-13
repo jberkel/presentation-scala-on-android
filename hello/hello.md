@@ -1,7 +1,7 @@
 !SLIDE
 # Scala on Android
 
-<!-- <img src="hello/devfest.png"/> -->
+<img src="hello/devfest.png"/>
 <img src="hello/droid-scala.png" class="centered"/>
 
 <br/>
@@ -16,8 +16,7 @@
 
   * From Java to Ruby and back
   * Work on the official SoundCloud native apps
-  * <3 Android open source
-  * Would love to see more people use Scala on Android
+  * Would love to see more people use Scala on Android, build community
 
 !SLIDE
 
@@ -29,7 +28,7 @@
 
 # It works ?
 
-* Java is mature, stable ... and also boring
+* Java is mature, stable ... and also a bit boring.
 * Java 1.0 released in 1996 (16 years ago!)
 * Slow Java Community Process, even slower with Oracle
 * Java 8 won't ship until Summer 2013 (earliest)
@@ -40,22 +39,22 @@
 
 !SLIDE
 
-# Java Roadmap
+# Java roadmap
 
 ## Java 7
 
 * Type inference for generics // List&lt;String&gt; list = new ArrayList<>();
 * Strings in switch // switch(foo) { case "bar": ... }
-* Catching multiple exception types // try { } catch (IOException|SQLException)
+* Catching multiple exception types // try { } catch (IOException | SQLException)
 
 ## Java 8
 
-* Lambda expression / closures // { String x -> x.length() == 0 }
-* Virtual extension methods // interface with implementations
+* Closures // { String x -> x.length() == 0 }
+* Multiple inheritance // "virtual extension methods"
 
 !SLIDE
 
-# Conclusion
+# But
 
 * Android doesn't even support Java 7 at the moment
 * Java is a conservative language
@@ -66,7 +65,7 @@
 # Scala
 
 * Modern, multi-paradigm language compiling to JVM bytecode
-* Powerful type system (with inference)
+* Powerful type system (+ inference)
 * Stronger object orientation, multiple inheritance
 * Focus on functional (closures, immutability)
 * Compatible w/ existing Java code
@@ -162,7 +161,7 @@ href="https://docs.google.com/drawings/d/11ccszWUtTul1DWpvbFBBhZlv_NTLaoJSrxPb3c
 
 !SLIDE
 
-# closures for callbacks
+# useful for callbacks
 
 <br/>
 
@@ -178,10 +177,11 @@ href="https://docs.google.com/drawings/d/11ccszWUtTul1DWpvbFBBhZlv_NTLaoJSrxPb3c
 
 !SLIDE
 
-# create nicer APIs
+# or to create nicer APIs
 
 <br/>
 
+    // query content provider
     Cursor c = resolver.query(...);
     List<MyModel> list = new ArrayList<MyModel>();
     // iterate over rows and create objects
@@ -320,7 +320,7 @@ Scala / Java / Android interop problems
 <br/>
 
   * Suitable for most types of apps
-  * But not good for realtime (i.e. games)
+  * Not for realtime (i.e. games)
   * Lack of experience / libraries
   * If unsure, start with Scala tests
 
@@ -330,15 +330,12 @@ Scala / Java / Android interop problems
   * android-maven-plugin
   * sbt-android-plugin
   * Intellij IDEA CE (fsc + Scala / Android facets)
-  * positronic lib
 
 <br/>
 
  * [code.google.com/p/maven-android-plugin](http://code.google.com/p/maven-android-plugin/)
  * [github.com/jberkel/android-plugin](https://github.com/jberkel/android-plugin)
  * [www.jetbrains.com/idea/download/](http://www.jetbrains.com/idea/download/)
- * [github.com/rst/positronic_net](https://github.com/rst/positronic_net)
-
 
 !SLIDE
 
