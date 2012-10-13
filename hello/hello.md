@@ -1,6 +1,7 @@
 !SLIDE
 # Scala on Android
 
+<!-- <img src="hello/devfest.png"/> -->
 <img src="hello/droid-scala.png" class="centered"/>
 
 <br/>
@@ -14,25 +15,66 @@
 <br/>
 
   * From Java to Ruby and back
-  * Work on the official SoundCloud Android app
+  * Work on the official SoundCloud native apps
   * <3 Android open source
   * Would love to see more people use Scala on Android
 
 !SLIDE
 
-# Quick Android recap
+# Why not Java ?
 
-* From 1.0 to 4.0 in < 4 years
-* 700k activations *every* day
-* 10 billion app downloads (Dec 2011)
-
-
-![](hello/trend.png)
-![](hello/market.jpg)
+<img src="hello/java_works.jpg" height="100%" class="centered"/>
 
 !SLIDE
 
-# Basics
+# It works ?
+
+* Java is mature, stable ... and also boring
+* Java 1.0 released in 1996 (16 years ago!)
+* Slow Java Community Process, even slower with Oracle
+* Java 8 won't ship until Summer 2013 (earliest)
+* Oracle decided on 2 year release cycle - Java 9 in 2015
+* Google/Oracle lawsuit
+
+
+
+!SLIDE
+
+# Java Roadmap
+
+## Java 7
+
+* Type inference for generics // List&lt;String&gt; list = new ArrayList<>();
+* Strings in switch // switch(foo) { case "bar": ... }
+* Catching multiple exception types // try { } catch (IOException|SQLException)
+
+## Java 8
+
+* Lambda expression / closures // { String x -> x.length() == 0 }
+* Virtual extension methods // interface with implementations
+
+!SLIDE
+
+# Conclusion
+
+* Android doesn't even support Java 7 at the moment
+* Java is a conservative language
+* Innovation happens elsewhere
+
+!SLIDE
+
+# Scala
+
+* Modern, multi-paradigm language compiling to JVM bytecode
+* Powerful type system (with inference)
+* Stronger object orientation, multiple inheritance
+* Focus on functional (closures, immutability)
+* Compatible w/ existing Java code
+* Has already a lot of the features found in Java 7 + 8
+
+!SLIDE
+
+# JVM vs Dalvik
 
 * at the core: Linux + DalvikVM (not JVM!)
 * Officially supported: Java + C/C++ (NDK)
@@ -44,17 +86,6 @@ href="https://docs.google.com/drawings/d/1LyNAij06eaHNxHpGczNApUdU84-8mVC8uEAkNG
 
 !SLIDE
 
-# What's this Dalvik thing?
-
-<br/>
-
- * Dalvik bytecode != JVM bytecode
- * optimised for smaller devices
- * one VM per process (forked)
- * used to be very slow, JIT since 2.2
-
-!SLIDE
-
 # Not just Java
 <a
 href="https://docs.google.com/drawings/d/11ccszWUtTul1DWpvbFBBhZlv_NTLaoJSrxPb3cd4U3Y/edit">
@@ -63,19 +94,42 @@ href="https://docs.google.com/drawings/d/11ccszWUtTul1DWpvbFBBhZlv_NTLaoJSrxPb3c
 
 !SLIDE
 
-# Why Scala on Android?
+# Some useful Scala features
 
 <br/>
 
-### Android is Java framework design, ca. 2001
+## * Traits
+
+!SLIDE
+
+
+### Android is old-school framework design
 
 <br>
 
-    public class MyActivity extends android.app.Activity {
-
+    public class MyActivity extends Activity {
       @Override public void onCreate(Bundle b) {
         super.onCreate(b);
-        BatteryHelper.initialize(this);
+      }
+    }
+
+<br/>
+
+!SLIDE
+
+## Move everything to a base class
+
+<br>
+
+    public class BaseActivity extends Activity {
+      @Override public void onCreate(Bundle b) {
+        // shared behaviour
+      }
+    }
+
+    public class MyActivity extends BaseActivity {
+      @Override public void onCreate(Bundle b) {
+        super.onCreate(b);
       }
     }
 
@@ -91,6 +145,7 @@ href="https://docs.google.com/drawings/d/11ccszWUtTul1DWpvbFBBhZlv_NTLaoJSrxPb3c
       }
       override def onPause() { ... }
     }
+    trait Logger extends Activity { ... }
 
     class MyActivity extends Activity
       with BatteryAware
@@ -99,18 +154,34 @@ href="https://docs.google.com/drawings/d/11ccszWUtTul1DWpvbFBBhZlv_NTLaoJSrxPb3c
 
 !SLIDE
 
-# Android & APIs
-
-![](hello/api.png)
-
-## actually not so bad.
-
-!SLIDE
-# But sometimes awkward
+# Some useful Scala features #2
 
 <br/>
 
-    // database lookup
+## * Closures
+
+!SLIDE
+
+# closures for callbacks
+
+<br/>
+
+    locationManager.addGpsStatusListener(
+      new GpsStatusListener() {
+        public void onGpsStatusChanged(int evt) {
+          System.out.printn(evt)
+        }
+      }
+    }
+    // vs.
+    locationManager.addGpsStatusListener(evt => println(evt))
+
+!SLIDE
+
+# create nicer APIs
+
+<br/>
+
     Cursor c = resolver.query(...);
     List<MyModel> list = new ArrayList<MyModel>();
     // iterate over rows and create objects
@@ -122,25 +193,33 @@ href="https://docs.google.com/drawings/d/11ccszWUtTul1DWpvbFBBhZlv_NTLaoJSrxPb3c
 
 <br/>
 
-## ugh.
 
 !SLIDE
 
-# Let's make a nice functional Cursor
+# vs
 
 <br/>
 
-    class NiceCursor(c: Cursor) extends Iterable[Cursor] {
+    return resolver.query(...) { cursor =>
+      cursor.map(MyModel.fromCursor(_))
+    }
+
+!SLIDE
+
+# making the cursor iterable
+
+<br/>
+
+    class BetterCursor(c: Cursor) extends Iterable[Cursor] {
       def iterator = new Iterator[Cursor] {
         def hasNext = c.getCount > 0 && !c.isLast
         def next() = { c.moveToNext(); c }
       }
     }
-    implicit def NiceCursor(c: Cursor) = new NiceCursor(c)
 
 !SLIDE
 
-# and a better query interface
+# managing resources
 
     def query[T](uri: Uri)(fun: Cursor => T) = {
         val cursor = resolver.query(uri)
@@ -150,85 +229,18 @@ href="https://docs.google.com/drawings/d/11ccszWUtTul1DWpvbFBBhZlv_NTLaoJSrxPb3c
           cursor.close()
         }
     }
-    // that's better
-    val list = query(...)(_.map(MyModel.fromCursor(_)))
 
 !SLIDE
 
-# shorter callbacks
-
-### ...pimp my GpsStatusListeners
-<br/>
-
-    locationManager.addGpsStatusListener(
-      new GpsStatusListener() {
-        public void onGpsStatusChanged(int evt) {
-          System.out.printn(evt)
-        }
-      }
-    }
-    // vs.
-    locationManager.addGpsStatusListener(println(_))
+# Why you shouldn't use Scala (yet)
 
 !SLIDE
 
-# Testing on Android
-## ...sucks.
+# Problems #1 memory
 
 <br/>
 
-  * slow
-  * many devices & versions
-  * verbose test code
-
-!SLIDE
-
-# Scala for testing
-
-<br/>
-
-## ScalaMock
-
- * Uses a compiler plugin to generate mocks
- * Currently not able to mock Android core classes
-
-<br/>
-[github.com/paulbutcher/scalamock](https://github.com/paulbutcher/scalamock)
-
-!SLIDE
-
-# robolectric / robospecs
-
-<br>
-
-  * Testable reimplementation of the SDK (don't ask)
-  * Classloading trickery allow test execution on development machine
-  * Works with specs2 and ScalaTest
-
-<br>
-[github.com/pivotal/robolectric](https://github.com/pivotal/robolectric)
-[github.com/jbrechtel/robospecs](https://github.com/jbrechtel/robospecs)
-
-!SLIDE
-
-# ScalaTest Example
-
-    lazy val track = ...
-
-    it should "insert an read back a track" in {
-      val uri = provider.insert(Content.TRACKS.uri,
-        track.buildContentValues())
-
-      val read = query(uri, 1)(_.map(new Track(_))).head
-      read.id should equal(track.id)
-      read.title should equal(track.title)
-      // etc.
-    }
-
-!SLIDE
-# Problems with Scala
-
-### many runtime assumptions based on JVM:
+### runtime assumptions based on JVM:
 
 * object allocation is cheap
 * efficient and fast GC
@@ -283,30 +295,23 @@ Scala / Java / Android interop problems
 [issues.scala-lang.org/browse/SI-4620](https://issues.scala-lang.org/browse/SI-4620)
 
 !SLIDE
-## But Android is "open" (sometimes...)
 
-![](hello/android-bug.png)
+# Problems #4 
+## scalac is slow. Like 4x slower.
 
-[android-review.googlesource.com/#/c/30900/](https://android-review.googlesource.com/#/c/30900/)
+    public class Test { }
 
-!SLIDE
+<br/>
 
-# Parcelables
+    $ time javac Test.java
+    real  0m0.630s
+    user  0m1.091s
+    sys 0m0.070s
 
-    public class Foo {
-      public static final Parcelable.Creator<Foo> CREATOR =
-        new Parcelable.Creator<Foo>() {
-          public Foo createFromParcel(Parcel in) {
-              return new Foo(in);
-          }
-
-          public Foo[] newArray(int size) {
-              return new Foo[size];
-          }
-      };
-     }
-
-You cannot do this in Scala!
+    $ time scalac Test.scala
+    real  0m2.340s
+    user  0m3.908s
+    sys 0m0.389s
 
 !SLIDE
 
@@ -322,23 +327,18 @@ You cannot do this in Scala!
 !SLIDE
 # Tools
 
+  * android-maven-plugin
   * sbt-android-plugin
   * Intellij IDEA CE (fsc + Scala / Android facets)
   * positronic lib
 
 <br/>
 
+ * [code.google.com/p/maven-android-plugin](http://code.google.com/p/maven-android-plugin/)
  * [github.com/jberkel/android-plugin](https://github.com/jberkel/android-plugin)
  * [www.jetbrains.com/idea/download/](http://www.jetbrains.com/idea/download/)
  * [github.com/rst/positronic_net](https://github.com/rst/positronic_net)
 
-
-!SLIDE
-# How to get started
-
-<br/>
-
-## Demo time...
 
 !SLIDE
 
@@ -349,4 +349,4 @@ You cannot do this in Scala!
 ![](hello/group.png)
 
 [groups.google.com/forum/#!forum/scala-on-android](https://groups.google.com/forum/#!forum/scala-on-android)
-[jberkel.github.com/presentation-scala-on-android](http://jberkel.github.com/presentation-scala-on-android)
+[jberkel.github.com/presentation-scala-on-android](http://jberkel.github.com/devfest-scala)
