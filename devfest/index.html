@@ -1,0 +1,204 @@
+<html>
+      <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <title>Scala on Android</title>
+        <link type="text/css" rel="stylesheet" href="assets/css/show.css" />
+        <link type="text/css" rel="stylesheet" href="assets/css/prettify.css" />
+        <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+        <script type="text/javascript" src="assets/js/show.js"></script>
+        <script type="text/javascript" src="assets/js/prettify/prettify.js"></script>
+        <script type="text/javascript" src="assets/js/prettify/lang-apollo.js"></script><script type="text/javascript" src="assets/js/prettify/lang-css.js"></script><script type="text/javascript" src="assets/js/prettify/lang-hs.js"></script><script type="text/javascript" src="assets/js/prettify/lang-lisp.js"></script><script type="text/javascript" src="assets/js/prettify/lang-lua.js"></script><script type="text/javascript" src="assets/js/prettify/lang-ml.js"></script><script type="text/javascript" src="assets/js/prettify/lang-proto.js"></script><script type="text/javascript" src="assets/js/prettify/lang-scala.js"></script><script type="text/javascript" src="assets/js/prettify/lang-sql.js"></script><script type="text/javascript" src="assets/js/prettify/lang-sql.js"></script><script type="text/javascript" src="assets/js/prettify/lang-vb.js"></script><script type="text/javascript" src="assets/js/prettify/lang-vhdl.js"></script><script type="text/javascript" src="assets/js/prettify/lang-wiki.js"></script><script type="text/javascript" src="assets/js/prettify/lang-yaml.js"></script><link type="text/css" rel="stylesheet" href="css/custom.css?1350217075787" />
+      <script type="text/javascript"><!--
+        window.onload=function() { prettyPrint(); };
+      --></script>
+      </head>
+      <body>
+        <div id="slides">
+          <div id="reel">
+            <div class="content" id="slide-0">
+       <div class="container"><h1 id="Scala+on+Android">Scala on Android</h1><img src="hello/devfest.png"/>
+<img src="hello/droid-scala.png" class="centered"/>
+<p><br/>
+<br/>
+@jberkel
+</p></div>
+      </div><div class="content" id="slide-1">
+       <div class="container"><h1 id="%2Fme">/me</h1><br/>
+<ul><li>From Java to Ruby and back
+</li><li>Work on the official SoundCloud native apps
+</li><li>Would love to see more people use Scala on Android, build community
+</li></ul></div>
+      </div><div class="content" id="slide-2">
+       <div class="container"><h1 id="Why+not+Java+%3F">Why not Java ?</h1><img src="hello/java_works.jpg" height="100%" class="centered"/>
+</div>
+      </div><div class="content" id="slide-3">
+       <div class="container"><h1 id="It+works+%3F">It works ?</h1><ul><li>Java is mature, stable … and also a bit boring.
+</li><li>Java 1.0 released in 1996 (16 years ago!)
+</li><li>Slow Java Community Process, even slower with Oracle
+</li><li>Java 8 won’t ship until Summer 2013 (earliest)
+</li><li>Oracle decided on 2 year release cycle - Java 9 in 2015
+</li><li>Google/Oracle lawsuit
+</li></ul></div>
+      </div><div class="content" id="slide-4">
+       <div class="container"><h1 id="Java+roadmap">Java roadmap</h1><h2 id="Java+7">Java 7</h2><ul><li>Type inference for generics // List&lt;String&gt; list = new ArrayList&lt;&gt;();
+</li><li>Strings in switch // switch(foo) { case “bar”: … }
+</li><li>Catching multiple exception types // try { } catch (IOException | SQLException)
+</li></ul><h2 id="Java+8">Java 8</h2><ul><li>Closures // { String x -&gt; x.length() == 0 }
+</li><li>Multiple inheritance // “virtual extension methods”
+</li></ul></div>
+      </div><div class="content" id="slide-5">
+       <div class="container"><h1 id="But">But</h1><ul><li>Android doesn’t even support Java 7 at the moment
+</li><li>Java is a conservative language
+</li><li>Innovation happens elsewhere
+</li></ul></div>
+      </div><div class="content" id="slide-6">
+       <div class="container"><h1 id="Scala">Scala</h1><ul><li>Modern, multi-paradigm language compiling to JVM bytecode
+</li><li>Powerful type system (+ inference)
+</li><li>Stronger object orientation, multiple inheritance
+</li><li>Focus on functional (closures, immutability)
+</li><li>Compatible w/ existing Java code
+</li><li>Has already a lot of the features found in Java 7 + 8
+</li></ul></div>
+      </div><div class="content" id="slide-7">
+       <div class="container"><h1 id="JVM+vs+Dalvik">JVM vs Dalvik</h1><ul><li>at the core: Linux + DalvikVM (not JVM!)
+</li><li>Officially supported: Java + C/C++ (NDK)
+</li></ul><a
+href="https://docs.google.com/drawings/d/1LyNAij06eaHNxHpGczNApUdU84-8mVC8uEAkNGfj5hM/edit?pli=1&hl=en_GB">
+<embed src="hello/jvm-dex-empty.svg" height="90%" type="image/svg+xml"/>
+</a>
+</div>
+      </div><div class="content" id="slide-8">
+       <div class="container"><h1 id="Not+just+Java">Not just Java</h1><a
+href="https://docs.google.com/drawings/d/11ccszWUtTul1DWpvbFBBhZlv_NTLaoJSrxPb3cd4U3Y/edit">
+<embed src="hello/jvm-dex.svg" height="90%" type="image/svg+xml"/>
+</a>
+</div>
+      </div><div class="content" id="slide-9">
+       <div class="container"><h1 id="Some+useful+Scala+features">Some useful Scala features</h1><br/>
+<h2 id="*+Traits">* Traits</h2></div>
+      </div><div class="content" id="slide-10">
+       <div class="container"><h3 id="Android+is+old-school+framework+design">Android is old-school framework design</h3><br>
+<pre><code>public class MyActivity extends Activity {
+  @Override public void onCreate(Bundle b) {
+    super.onCreate(b);
+  }
+}
+</code></pre><br/>
+</div>
+      </div><div class="content" id="slide-11">
+       <div class="container"><h2 id="Move+everything+to+a+base+class">Move everything to a base class</h2><br>
+<pre><code>public class BaseActivity extends Activity {
+  @Override public void onCreate(Bundle b) {
+    // shared behaviour
+  }
+}
+
+public class MyActivity extends BaseActivity {
+  @Override public void onCreate(Bundle b) {
+    super.onCreate(b);
+  }
+}
+</code></pre></div>
+      </div><div class="content" id="slide-12">
+       <div class="container"><h1 id="Traits+to+split+concerns">Traits to split concerns</h1><br/>
+<pre><code>trait BatteryAware extends Activity {
+  override def onCreate(b: Bundle) {
+    // register battery handler
+  }
+  override def onPause() { ... }
+}
+trait Logger extends Activity { ... }
+
+class MyActivity extends Activity
+  with BatteryAware
+  with Logger {
+}
+</code></pre></div>
+      </div><div class="content" id="slide-13">
+       <div class="container"><h1 id="Some+useful+Scala+features+%232">Some useful Scala features #2</h1><br/>
+<h2 id="*+Closures">* Closures</h2></div>
+      </div><div class="content" id="slide-14">
+       <div class="container"><h1 id="useful+for+callbacks">useful for callbacks</h1><br/>
+<pre><code>locationManager.addGpsStatusListener(
+  new GpsStatusListener() {
+    public void onGpsStatusChanged(int evt) {
+      System.out.printn(evt)
+    }
+  }
+}
+// vs.
+locationManager.addGpsStatusListener(evt =&gt; println(evt))
+</code></pre></div>
+      </div><div class="content" id="slide-15">
+       <div class="container"><h1 id="Why+you+shouldn%E2%80%99t+use+Scala+%28yet%29">Why you shouldn’t use Scala (yet)</h1></div>
+      </div><div class="content" id="slide-16">
+       <div class="container"><h1 id="Problems+%231+memory">Problems #1 memory</h1><br/>
+<h3 id="runtime+assumptions+based+on+JVM%3A">runtime assumptions based on JVM:</h3><ul><li>object allocation is cheap
+</li><li>efficient and fast GC
+</li></ul><p><br/>
+However, Android developer guidelines say:
+</p><blockquote>
+<p>
+Avoid Creating Unnecessary Objects
+</p>
+</blockquote>
+<p>But performance is improving (parallel GC, JIT etc)
+</p></div>
+      </div><div class="content" id="slide-17">
+       <div class="container"><h1 id="Problems+%232">Problems #2</h1><h2 id="Scala+programs+need+a+runtime+lib">Scala programs need a runtime lib</h2><br/>
+<pre><code>$ ls -lh scala-library.jar
+rw-r--r--  jan  wheel  8.5M 24 May  2011 scala-library.jar
+
+$ jar tfv scala-library.jar | wc -l
+  5480
+</code></pre></div>
+      </div><div class="content" id="slide-18">
+       <div class="container"><h1 id="Solution">Solution</h1><ul><li>use proguard / treeshaker before dexing
+</li><li>preinstall Scala libs on the phone
+</li></ul><br/>
+<h3 id="Proguard+is+slow%2C+long+dev+cycles">Proguard is slow, long dev cycles</h3><h3 id="Only+run+it+before+releasing">Only run it before releasing</h3></div>
+      </div><div class="content" id="slide-19">
+       <div class="container"><h1 id="Problems+%233">Problems #3</h1><p>Scala / Java / Android interop problems
+</p><p><img alt=""  src="hello/scala-bug.png" />
+</p><p><a  href="https://issues.scala-lang.org/browse/SI-4620">issues.scala-lang.org/browse/SI-4620</a>
+</p></div>
+      </div><div class="content" id="slide-20">
+       <div class="container"><h1 id="Problems+%234">Problems #4</h1><h2 id="scalac+is+slow.+Like+4x+slower.">scalac is slow. Like 4x slower.</h2><pre><code>public class Test { }
+</code></pre><br/>
+<pre><code>$ time javac Test.java
+real  0m0.630s
+user  0m1.091s
+sys 0m0.070s
+
+$ time scalac Test.scala
+real  0m2.340s
+user  0m3.908s
+sys 0m0.389s
+</code></pre></div>
+      </div><div class="content" id="slide-21">
+       <div class="container"><h1 id="When+to+use+Scala">When to use Scala</h1><br/>
+<ul><li>Suitable for most types of apps
+</li><li>Not for realtime (i.e. games)
+</li><li>Lack of experience / libraries
+</li><li>If unsure, start with Scala tests
+</li></ul></div>
+      </div><div class="content" id="slide-22">
+       <div class="container"><h1 id="Tools">Tools</h1><ul><li>android-maven-plugin
+</li><li>sbt-android-plugin
+</li><li>Intellij IDEA CE (fsc + Scala / Android facets)
+</li></ul><br/>
+<ul><li><a  href="http://code.google.com/p/maven-android-plugin/">code.google.com/p/maven-android-plugin</a>
+</li><li><a  href="https://github.com/jberkel/android-plugin">github.com/jberkel/android-plugin</a>
+</li><li><a  href="http://www.jetbrains.com/idea/download/">www.jetbrains.com/idea/download/</a>
+</li></ul></div>
+      </div><div class="content" id="slide-23">
+       <div class="container"><h1 id="Thanks%21">Thanks!</h1><h2 id="need+help%3F+ask+scala-on-android">need help? ask scala-on-android</h2><p><img alt=""  src="hello/group.png" />
+</p><p><a  href="https://groups.google.com/forum/#!forum/scala-on-android">groups.google.com/forum/#!forum/scala-on-android</a>
+<a  href="http://jberkel.github.com/devfest-scala">jberkel.github.com/presentation-scala-on-android</a>
+</p></div>
+      </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="js/custom.js?1350217076318"></script>
+      </body>
+    </html>
